@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Alison Hill" />
+
+
+<title>Lab 02a: MOMA cleaning</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">CS631 Labs</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="slides.html">Slides &amp; Reading</a>
+</li>
+<li>
+  <a href="data-vis-resources.html">Resources</a>
+</li>
+<li>
+  <a href="https://sakai.ohsu.edu/portal/site/CS-631-1-32176-Sp18">Sakai</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Lab 02a: MOMA cleaning</h1>
+<h3 class="subtitle"><em>CS631</em></h3>
+<h4 class="author"><em>Alison Hill</em></h4>
+
+</div>
+
+
+<div id="load-the-moma-data" class="section level1">
+<h1>Load the MOMA data</h1>
+<pre class="r"><code>library(here)
+library(readr)
+library(janitor)
+library(dplyr)
+moma &lt;- read_csv(here::here(&quot;data&quot;, &quot;artworks.csv&quot;),
+                 col_types = cols(
+                   BeginDate = col_number(),
+                   EndDate = col_number(),
+                   `Length (cm)` = col_number(),
+                   `Circumference (cm)` = col_number(),
+                   `Duration (sec.)` = col_number(),
+                   `Diameter (cm)` = col_number()
+                 )) %&gt;% 
+  clean_names()
+problems(moma)</code></pre>
+<pre><code># A tibble: 8 x 5
+     row col          expected     actual  file                           
+   &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;   &lt;chr&gt;                          
+1 103824 DateAcquired &quot;date like &quot; 1998-04 &#39;/Users/hillali/Documents/Proj…
+2 128673 DateAcquired &quot;date like &quot; 1977-08 &#39;/Users/hillali/Documents/Proj…
+3 131406 DateAcquired &quot;date like &quot; 1998-04 &#39;/Users/hillali/Documents/Proj…
+4 131785 DateAcquired &quot;date like &quot; 1975-01 &#39;/Users/hillali/Documents/Proj…
+5 132165 DateAcquired &quot;date like &quot; 1998-04 &#39;/Users/hillali/Documents/Proj…
+6 132166 DateAcquired &quot;date like &quot; 1998-04 &#39;/Users/hillali/Documents/Proj…
+7 132167 DateAcquired &quot;date like &quot; 1995    &#39;/Users/hillali/Documents/Proj…
+8 132169 DateAcquired &quot;date like &quot; 1998-04 &#39;/Users/hillali/Documents/Proj…</code></pre>
+<p>Basic cleaning with <code>stringr</code> of <code>gender</code> variable, which refers to the gender of the artist (a <code>()</code> is used a placeholder for “various artists”)</p>
+<pre class="r"><code>library(stringr)
+moma &lt;- moma %&gt;% 
+  mutate(gender = str_replace_all(gender, fixed(&quot;(female)&quot;, 
+                                                    ignore_case = TRUE), &quot;F&quot;),
+         gender = str_replace_all(gender, fixed(&quot;(male)&quot;, 
+                                                    ignore_case = TRUE), &quot;M&quot;),
+         num_artists = str_count(gender, &quot;[:alpha:]&quot;),
+         num_artists = na_if(num_artists, 0),
+         n_female_artists = str_count(gender, &quot;F&quot;),
+         n_male_artists = str_count(gender, &quot;M&quot;),
+         artist_gender = case_when(
+           num_artists == 1 &amp; n_female_artists == 1 ~ &quot;Female&quot;,
+           num_artists == 1 &amp; n_male_artists == 1 ~ &quot;Male&quot;
+         ))</code></pre>
+<p>Let’s also do some detecting of strings in the <code>credit_line</code> variable.</p>
+<pre class="r"><code>moma &lt;- moma %&gt;% 
+  mutate(purchase = str_detect(credit_line, fixed(&quot;purchase&quot;, ignore_case = TRUE)),
+         gift = str_detect(credit_line, fixed(&quot;gift&quot;, ignore_case = TRUE)),
+         exchange = str_detect(credit_line, fixed(&quot;exchange&quot;, ignore_case = TRUE)))</code></pre>
+<p>According to <a href="https://www.moma.org/momaorg/shared/pdfs/docs/explore/CollectionsMgmtPolicyMoMA_Oct10.pdf">MOMA</a>: Acquisitions to the Collection may be made by purchase, gift, fractional interest gift, bequest, or exchange.</p>
+<p>Let’s clean up some dates:</p>
+<ul>
+<li>We’ll clean up year acquired with <code>lubridate</code> to pull out the <code>year</code>.</li>
+<li>We’ll rename two date variables that are the artist birth/death year, but aren’t labelled clearly.</li>
+<li>We’ll do a very rough estimate of the date each piece was created, using <code>stringr::str_extract()</code></li>
+</ul>
+<pre class="r"><code>library(lubridate)
+moma &lt;- moma %&gt;% 
+  mutate(year_acquired = year(date_acquired)) %&gt;% 
+  rename(artist_birth_year = begin_date, artist_death_year = end_date) %&gt;% 
+  mutate(year_created = str_extract(date, &quot;\\d{4}&quot;),
+         artist_birth_year = na_if(artist_birth_year, 0),
+         artist_death_year = na_if(artist_death_year, 0))</code></pre>
+<p>What different kinds of art classifications are available?</p>
+<pre class="r"><code>moma %&gt;% 
+  distinct(classification) %&gt;% 
+  print(n = Inf)</code></pre>
+<pre><code># A tibble: 31 x 1
+   classification                
+   &lt;chr&gt;                         
+ 1 Architecture                  
+ 2 Mies van der Rohe Archive     
+ 3 Design                        
+ 4 Illustrated Book              
+ 5 Print                         
+ 6 Drawing                       
+ 7 Film                          
+ 8 Multiple                      
+ 9 Periodical                    
+10 Photograph                    
+11 Painting                      
+12 (not assigned)                
+13 Architectural Model           
+14 Product Design                
+15 Video                         
+16 Media                         
+17 Performance                   
+18 Sculpture                     
+19 Photography Research/Reference
+20 Software                      
+21 Installation                  
+22 Work on Paper                 
+23 Audio                         
+24 Textile                       
+25 Ephemera                      
+26 Collage                       
+27 Film (object)                 
+28 Frank Lloyd Wright Archive    
+29 Poster                        
+30 Graphic Design                
+31 Furniture and Interiors       </code></pre>
+<p>We want to focus on standard rectangular paintings:</p>
+<ul>
+<li>Filter based on classification</li>
+<li>Drop all pieces of art that have either missing (<code>NA</code>) height or width measurements, or who have <code>0</code> for either height or width.</li>
+</ul>
+<pre class="r"><code>library(tidyr)
+moma &lt;- moma %&gt;% 
+  filter(classification == &quot;Painting&quot;) %&gt;% 
+  drop_na(height_cm, width_cm) %&gt;% 
+  filter(height_cm &gt; 0 &amp; width_cm &gt; 0)</code></pre>
+<p>We’ll select those columns we want to keep:</p>
+<pre class="r"><code>moma &lt;- moma %&gt;% 
+  select(title, contains(&quot;artist&quot;), contains(&quot;year&quot;), contains(&quot;_cm&quot;),
+         purchase, gift, exchange, classification, department)</code></pre>
+<p>Now let’s export this data frame for the lab.</p>
+<pre class="r"><code>write_csv(moma, here::here(&quot;data&quot;, &quot;artworks-cleaned.csv&quot;))</code></pre>
+</div>
+
+<p>
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
+<img alt="Creative Commons License" style="border-width:0" src="by-nc.png" height="400" width="65"/></a>
+</p>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

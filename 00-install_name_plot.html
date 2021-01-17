@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Alison Hill" />
+
+
+<title>Introduce Yourself</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">CS631 Labs</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="slides.html">Slides &amp; Reading</a>
+</li>
+<li>
+  <a href="data-vis-resources.html">Resources</a>
+</li>
+<li>
+  <a href="https://sakai.ohsu.edu/portal/site/CS-631-1-32176-Sp18">Sakai</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Introduce Yourself</h1>
+<h4 class="author"><em>Alison Hill</em></h4>
+
+</div>
+
+
+<blockquote>
+<p>Read all the way through step 6, and note that there is a file that needs to be turned in to Sakai before Wednesday at noon!</p>
+</blockquote>
+<div id="overview" class="section level1">
+<h1><span class="header-section-number">1</span> Overview</h1>
+<p>This guide will lead you through the steps to install and use <a href="https://www.r-project.org">R, a free and open-source software environment for statistical computing and graphics.</a></p>
+<p>What is R?</p>
+<ul>
+<li><strong>R</strong> is the name of the programming language itself, based off of S from Bell Labs, which users access through a command-line interpreter (<code>&gt;</code>)</li>
+</ul>
+<p>What is RStudio?</p>
+<ul>
+<li><strong>RStudio</strong> is a powerful and convenient user interface that allows you to access the R programming language along with a lot of other bells and whistles that enhance functionality (and sanity).</li>
+</ul>
+<p>Our end goal is to get you looking at a screen like this:</p>
+<div class="figure">
+<img src="images/00_final-screenshot.png" />
+
+</div>
+</div>
+<div id="install-r" class="section level1">
+<h1><span class="header-section-number">2</span> Install R</h1>
+<p>Install R from <a href="https://cran.rstudio.com">CRAN, the Comprehensive R Archive Network</a>. Please choose a <strong>precompiled binary distribution</strong> for your operating system.</p>
+<ul>
+<li>If you need more help, check out one of the following videos (courtesy of Roger Peng at Johns Hopkins Biostatistics):
+<ul>
+<li><a href="https://www.youtube.com/watch?v=Icawuhf0Yqo&amp;feature=youtu.be">Installing R on a mac</a></li>
+<li><a href="https://www.youtube.com/watch?v=mfGFv-iB724&amp;feature=youtu.be">Installing R on windows</a></li>
+</ul></li>
+<li>If you need even more help, read this <a href="https://beckmw.files.wordpress.com/2014/09/r_install_guide.pdf">step-by-step guide</a>, including screenshots.</li>
+</ul>
+<div id="check-in" class="section level2">
+<h2><span class="header-section-number">2.1</span> Check in</h2>
+<p>Launch R. You should see one console with a command line interpreter (<code>&gt;</code>). Close R.</p>
+</div>
+</div>
+<div id="install-rstudio" class="section level1">
+<h1><span class="header-section-number">3</span> Install RStudio</h1>
+<p>Install the free, open-source edition of RStudio: <a href="http://www.rstudio.com/products/rstudio/download/" class="uri">http://www.rstudio.com/products/rstudio/download/</a></p>
+<p>RStudio provides a powerful user interface for R, called an <em>integrated development environment</em>. RStudio includes:</p>
+<ul>
+<li>a console (the standard command line interface: <code>&gt;</code>),</li>
+<li>a syntax-highlighting editor that supports direct code execution, and</li>
+<li>tools for plotting, history, debugging and workspace management.</li>
+</ul>
+<div id="check-in-1" class="section level2">
+<h2><span class="header-section-number">3.1</span> Check in</h2>
+<p>Launch RStudio. You should get a window similar to the screenshot you see <a href="https://www.rstudio.com/wp-content/uploads/2014/04/rstudio-workbench.png">here</a>, but yours will be empty. Look at the bottom left pane: this is the same console window you saw when you opened R in step 1.15.</p>
+<ul>
+<li>Place your cursor where you see <code>&gt;</code> and type <code>x &lt;- 2 + 2</code>, hit enter or return, then type <code>x</code>, and hit enter/return again.</li>
+<li>If <code>[1] 4</code> prints to the screen, you have successfully installed R and RStudio, and you can move onto installing packages.</li>
+</ul>
+</div>
+</div>
+<div id="install-packages" class="section level1">
+<h1><span class="header-section-number">4</span> Install packages</h1>
+<p>The version of R that you just downloaded is considered base R, which provides you with good but basic statistical computing and graphics powers. For analytical and graphical super-powers, you’ll need to install add-on packages, which are user-written, to extend/expand your R capabilities. Packages can live in one of two places:</p>
+<ul>
+<li>They may be carefully curated by CRAN (which involves a thorough submission and review process), and thus are easy install using <code>install.packages(&quot;name_of_package&quot;, dependencies = TRUE)</code>.</li>
+<li>Alternatively, they may be available via GitHub. To download these packages, you first need to install the <code>devtools</code> package.</li>
+</ul>
+<pre class="r"><code>install.packages(&quot;devtools&quot;)
+library(devtools)
+install_github(&quot;name_of_package&quot;)</code></pre>
+<p>Place your cursor in the console again (where you last typed <code>x</code> and <code>[4]</code> printed on the screen). You can use the first method to install the following packages directly from CRAN, all of which we will use:</p>
+<ul>
+<li><a href="http://dplyr.tidyverse.org"><code>dplyr</code>,</a></li>
+<li><a href="http://ggplot2.tidyverse.org"><code>ggplot2</code>,</a></li>
+<li><a href="https://github.com/hadley/babynames"><code>babynames</code></a></li>
+</ul>
+<p>You can download all of these at once, too:</p>
+<pre class="r"><code>install.packages(c(&quot;dplyr&quot;, &quot;ggplot2&quot;, &quot;babynames&quot;), 
+                 dependencies = TRUE)</code></pre>
+<p class="text-info">
+<strong>Heads up:</strong> We should formally introduce the combine command, <a href="http://stat.ethz.ch/R-manual/R-patched/library/base/html/c.html"><code>c()</code></a>, used above. You will use this often- any time you want to combine things into a vector.
+</p>
+<pre class="r"><code>c(&quot;hello&quot;, &quot;my&quot;, &quot;name&quot;, &quot;is&quot;, &quot;alison&quot;)</code></pre>
+<pre><code>[1] &quot;hello&quot;  &quot;my&quot;     &quot;name&quot;   &quot;is&quot;     &quot;alison&quot;</code></pre>
+<pre class="r"><code>c(1:3, 20, 50)</code></pre>
+<pre><code>[1]  1  2  3 20 50</code></pre>
+<p>Mind your use of quotes carefully with packages.</p>
+<ul>
+<li>To <em>install</em> a package, you put the name of the package in quotes as in <code>install.packages(&quot;name_of_package&quot;)</code>.</li>
+<li>To <em>use</em> an already installed package, you must load it first, as in <code>library(name_of_package)</code>, leaving the name of the package bare. You only need to do this once per RStudio session.</li>
+<li>If you want <em>help</em>, no quotes are needed: <code>help(name_of_package)</code> or <code>?name_of_package</code>.</li>
+<li>If you want the <em>citation</em> for a package (and you should give credit where credit is due), ask R as in <code>citation(&quot;name_of_package&quot;)</code>.</li>
+</ul>
+<pre class="r"><code>install.packages(&quot;dplyr&quot;, dependencies = TRUE)
+library(dplyr)
+help(&quot;dplyr&quot;)</code></pre>
+<pre class="r"><code>citation(&quot;ggplot2&quot;)</code></pre>
+<pre><code>
+To cite ggplot2 in publications, please use:
+
+  H. Wickham. ggplot2: Elegant Graphics for Data Analysis.
+  Springer-Verlag New York, 2016.
+
+A BibTeX entry for LaTeX users is
+
+  @Book{,
+    author = {Hadley Wickham},
+    title = {ggplot2: Elegant Graphics for Data Analysis},
+    publisher = {Springer-Verlag New York},
+    year = {2016},
+    isbn = {978-3-319-24277-4},
+    url = {http://ggplot2.org},
+  }</code></pre>
+<p class="text-info">
+<strong>Heads up:</strong> R is <strong>case-sensitive</strong>, so <code>?dplyr</code> works but <code>?Dplyr</code> will not. Likewise, a variable called <code>A</code> is different from <code>a</code>.
+</p>
+</div>
+<div id="make-a-name-plot" class="section level1">
+<h1><span class="header-section-number">5</span> Make a name plot</h1>
+<p>Open a new R script in RStudio by going to <code>File --&gt; New File --&gt; R Script</code>. For this first foray into R, I’ll give you the code, so sit back and relax and feel free to copy and paste my code with some small tweaks.</p>
+<p>First load the packages:</p>
+<pre class="r"><code>library(babynames) # contains the actual data
+library(dplyr) # for manipulating data
+library(ggplot2) # for plotting data</code></pre>
+<p>Next, we’ll follow <a href="https://cran.r-project.org/doc/contrib/de_Jonge+van_der_Loo-Introduction_to_data_cleaning_with_R.pdf">best practices for inspecting a freshly read dataset</a>. Also, see <a href="http://simplystatistics.org/2014/06/13/what-i-do-when-i-get-a-new-data-set-as-told-through-tweets/">“What I do when I get a new data set as told through tweets”</a> for more ideas about exploring a new dataset. Here are some critical commands to obtain a high-level overview (HLO) of your freshly read dataset in R. We’ll call it saying hello to your dataset:</p>
+<pre class="r"><code>glimpse(babynames) # dplyr</code></pre>
+<pre><code>Observations: 1,858,689
+Variables: 5
+$ year &lt;dbl&gt; 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 1880, 188...
+$ sex  &lt;chr&gt; &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F...
+$ name &lt;chr&gt; &quot;Mary&quot;, &quot;Anna&quot;, &quot;Emma&quot;, &quot;Elizabeth&quot;, &quot;Minnie&quot;, &quot;Margaret&quot;...
+$ n    &lt;int&gt; 7065, 2604, 2003, 1939, 1746, 1578, 1472, 1414, 1320, 128...
+$ prop &lt;dbl&gt; 0.072384329, 0.026679234, 0.020521700, 0.019865989, 0.017...</code></pre>
+<pre class="r"><code>head(babynames) # base R</code></pre>
+<pre><code># A tibble: 6 x 5
+   year sex   name          n   prop
+  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;     &lt;int&gt;  &lt;dbl&gt;
+1 1880. F     Mary       7065 0.0724
+2 1880. F     Anna       2604 0.0267
+3 1880. F     Emma       2003 0.0205
+4 1880. F     Elizabeth  1939 0.0199
+5 1880. F     Minnie     1746 0.0179
+6 1880. F     Margaret   1578 0.0162</code></pre>
+<pre class="r"><code>tail(babynames) # same</code></pre>
+<pre><code># A tibble: 6 x 5
+   year sex   name       n       prop
+  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;int&gt;      &lt;dbl&gt;
+1 2015. M     Zyah       5 0.00000247
+2 2015. M     Zykell     5 0.00000247
+3 2015. M     Zyking     5 0.00000247
+4 2015. M     Zykir      5 0.00000247
+5 2015. M     Zyrus      5 0.00000247
+6 2015. M     Zyus       5 0.00000247</code></pre>
+<pre class="r"><code>names(babynames) # same</code></pre>
+<pre><code>[1] &quot;year&quot; &quot;sex&quot;  &quot;name&quot; &quot;n&quot;    &quot;prop&quot;</code></pre>
+<p>If you have done the above and produced sane-looking output, you are ready for the next bit. Use the code below to create a new data frame called <code>alison</code>.</p>
+<pre class="r"><code>alison &lt;- babynames %&gt;%
+  filter(name == &quot;Alison&quot; | name == &quot;Allison&quot;) %&gt;% 
+  filter(sex == &quot;F&quot;) </code></pre>
+<ul>
+<li><p>The first bit makes a new dataset called <code>alison</code> that is a copy of the <code>babynames</code> dataset- the <code>%&gt;%</code> tells you we are doing some other stuff to it later.</p></li>
+<li><p>The second bit <code>filters</code> our <code>babynames</code> to only keep rows where the <code>name</code> is either Alison or Allison (read <code>|</code> as <em>“or”</em>.)</p></li>
+<li><p>The third bit applies another <code>filter</code> to keep only those where sex is female.</p></li>
+</ul>
+<p>Let’s check out the data.</p>
+<pre class="r"><code>alison</code></pre>
+<pre><code># A tibble: 214 x 5
+    year sex   name        n      prop
+   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;int&gt;     &lt;dbl&gt;
+ 1 1905. F     Alison      7 0.0000226
+ 2 1907. F     Alison      5 0.0000148
+ 3 1908. F     Allison     6 0.0000169
+ 4 1910. F     Alison      5 0.0000119
+ 5 1910. F     Allison     5 0.0000119
+ 6 1911. F     Allison     9 0.0000204
+ 7 1912. F     Allison    12 0.0000205
+ 8 1912. F     Alison      9 0.0000153
+ 9 1913. F     Alison     12 0.0000183
+10 1913. F     Allison     7 0.0000107
+# ... with 204 more rows</code></pre>
+<pre class="r"><code>glimpse(alison)</code></pre>
+<pre><code>Observations: 214
+Variables: 5
+$ year &lt;dbl&gt; 1905, 1907, 1908, 1910, 1910, 1911, 1912, 1912, 1913, 191...
+$ sex  &lt;chr&gt; &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F...
+$ name &lt;chr&gt; &quot;Alison&quot;, &quot;Alison&quot;, &quot;Allison&quot;, &quot;Alison&quot;, &quot;Allison&quot;, &quot;Alli...
+$ n    &lt;int&gt; 7, 5, 6, 5, 5, 9, 12, 9, 12, 7, 22, 11, 16, 13, 24, 15, 2...
+$ prop &lt;dbl&gt; 2.259012e-05, 1.481776e-05, 1.692367e-05, 1.191821e-05, 1...</code></pre>
+<p>Again, if you have sane-looking output here, move along to plotting the data!</p>
+<pre class="r"><code>plot &lt;- ggplot(alison, aes(x = year, 
+                           y = prop,  
+                           group = name, 
+                           color = name)) + 
+  geom_line()  </code></pre>
+<p>Now if you did this right, you will not see your plot! Because we saved the <code>ggplot</code> with a name (<code>plot</code>), R just saved the object for you. But check out the top right pane in RStudio again: under <code>Values</code> you should see <code>plot</code>, so it is there, you just have to ask for it. Here’s how:</p>
+<pre class="r"><code>plot </code></pre>
+<p><img src="00-install_name_plot_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+<div id="make-a-new-name-plot" class="section level1">
+<h1><span class="header-section-number">6</span> Make a new name plot</h1>
+<p>Edit my code above to create a new dataset. Pick 2 names to compare how popular they each are (these could be different spellings of your own name, like I did, but you can choose any 2 names that are present in the dataset). Make the new plot, changing the name of the first argument <code>alison</code> in <code>ggplot()</code> to the name of your new dataset.</p>
+<div id="save-and-share" class="section level2">
+<h2><span class="header-section-number">6.1</span> Save and share</h2>
+<p>Save your work so you can share your favorite plot with us. You will not like the looks of your plot if you mouse over to <code>Export</code> and save it. Instead, use <code>ggplot2</code>’s command for saving a plot with sensible defaults:</p>
+<pre class="r"><code>help(ggsave)</code></pre>
+<pre class="r"><code>ggsave(&quot;alison_hill.pdf&quot;, plot) # please make the filename unique!</code></pre>
+<p>Upload this exported plot to Sakai before Wednesday at noon.</p>
+</div>
+</div>
+<div id="other-cool-babynames-projects" class="section level1">
+<h1><span class="header-section-number">7</span> Other cool <code>babynames</code> projects</h1>
+<ul>
+<li>Julia Silge <em>‘My Baby Boomer Name Might Have Been “Debbie”’</em>: <a href="https://juliasilge.com/blog/my-baby-boomer-name/" class="uri">https://juliasilge.com/blog/my-baby-boomer-name/</a>
+<ul>
+<li>Use Julia’s Shiny app: <a href="https://juliasilge.shinyapps.io/PredictNamesApp/" class="uri">https://juliasilge.shinyapps.io/PredictNamesApp/</a> <img src="https://juliasilge.com/figs/2016-02-29-My-Baby-Boomer-Name/unnamed-chunk-8-1.png" /></li>
+</ul></li>
+<li>Hilary Parker: Hilary: The Most Poisoned Baby Name in US History: <a href="https://hilaryparker.com/2013/01/30/hilary-the-most-poisoned-baby-name-in-us-history/" class="uri">https://hilaryparker.com/2013/01/30/hilary-the-most-poisoned-baby-name-in-us-history/</a></li>
+</ul>
+<div class="figure">
+<img src="https://hilaryparker.files.wordpress.com/2013/01/more_names_trimmed2.png" />
+
+</div>
+</div>
+<div id="resources" class="section level1">
+<h1><span class="header-section-number">8</span> Resources</h1>
+<ul>
+<li><p><a href="https://alison.rbind.io/html/jamboree_heart_ggplot.html" class="uri">https://alison.rbind.io/html/jamboree_heart_ggplot.html</a></p></li>
+<li><p><a href="http://moderndive.com/2-getting-started.html" class="uri">http://moderndive.com/2-getting-started.html</a></p></li>
+<li><p><a href="http://r4ds.had.co.nz" class="uri">http://r4ds.had.co.nz</a></p></li>
+<li><p><a href="https://www.rstudio.com/resources/cheatsheets/" class="uri">https://www.rstudio.com/resources/cheatsheets/</a></p></li>
+<li><p><a href="https://rweekly.org" class="uri">https://rweekly.org</a></p></li>
+</ul>
+</div>
+
+<p>
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
+<img alt="Creative Commons License" style="border-width:0" src="by-nc.png" height="400" width="65"/></a>
+</p>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
